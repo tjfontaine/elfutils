@@ -69,7 +69,7 @@ unstrip_no_Wstack_usage = yes
 
 readelf_LDADD = $(libdw) $(libebl) $(libelf) $(libeu) $(argp_LDADD) -ldl
 nm_LDADD = $(libdw) $(libebl) $(libelf) $(libeu) $(argp_LDADD) -ldl \
-	   $(demanglelib)
+	   $(demanglelib) -lobstack
 size_LDADD = $(libelf) $(libeu) $(argp_LDADD)
 strip_LDADD = $(libebl) $(libelf) $(libdw) $(libeu) $(argp_LDADD) -ldl
 elflint_LDADD  = $(libebl) $(libelf) $(libeu) $(argp_LDADD) -ldl
@@ -77,9 +77,9 @@ findtextrel_LDADD = $(libdw) $(libelf) $(libeu) $(argp_LDADD)
 addr2line_LDADD = $(libdw) $(libelf) $(libeu) $(argp_LDADD) $(demanglelib)
 elfcmp_LDADD = $(libebl) $(libelf) $(libeu) $(argp_LDADD) -ldl
 objdump_LDADD  = $(libasm) $(libebl) $(libelf) $(libeu) $(argp_LDADD) -ldl
-ranlib_LDADD = libar.a $(libelf) $(libeu) $(argp_LDADD)
+ranlib_LDADD = libar.a $(libelf) $(libeu) $(argp_LDADD) -lobstack
 strings_LDADD = $(libelf) $(libeu) $(argp_LDADD)
-ar_LDADD = libar.a $(libelf) $(libeu) $(argp_LDADD)
+ar_LDADD = libar.a $(libelf) $(libeu) $(argp_LDADD) -lobstack
 unstrip_LDADD = $(libebl) $(libelf) $(libdw) $(libeu) $(argp_LDADD) -ldl
 stack_LDADD = $(libebl) $(libelf) $(libdw) $(libeu) $(argp_LDADD) -ldl $(demanglelib)
 elfcompress_LDADD = $(libebl) $(libelf) $(libdw) $(libeu) $(argp_LDADD)
