@@ -63,6 +63,14 @@ AC_CONFIG_FILES([elfutils.spec:config/elfutils.spec.in])
 
 AC_CANONICAL_HOST
 
+AC_ARG_ENABLE(werror,
+[AS_HELP_STRING([--disable-werror],
+                [turn off -Werror @<:@default=enabled@:>@])])
+if test "x$enable_werror" != "xno"; then
+  WERROR="-Werror"
+fi
+AC_SUBST(WERROR)
+
 AC_ARG_ENABLE(deterministic-archives,
 [AS_HELP_STRING([--enable-deterministic-archives],
 		[ar and ranlib default to -D behavior])], [
