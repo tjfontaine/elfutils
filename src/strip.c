@@ -47,6 +47,10 @@
 #include <system.h>
 #include <printversion.h>
 
+#if !defined(ACCESSPERMS)
+#define ACCESSPERMS (S_IRWXU|S_IRWXG|S_IRWXO)
+#endif
+
 typedef uint8_t GElf_Byte;
 
 /* Name and version of program.  */
