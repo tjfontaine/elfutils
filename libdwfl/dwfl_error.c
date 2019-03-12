@@ -154,7 +154,16 @@ dwfl_errmsg (int error)
   switch (error &~ 0xffff)
     {
     case OTHER_ERROR (ERRNO):
+#if defined(__GLIBC__)
       return strerror_r (error & 0xffff, "bad", 0);
+#else
+      {
+        static __thread char buf[128] = "";
+        if (0 == strerror_r(error & 0xffff, buf, sizeof(buf)))
+          return buf;
+      }
+      return "strerror_r() failed";
+#endif
     case OTHER_ERROR (LIBELF):
       return elf_errmsg (error & 0xffff);
     case OTHER_ERROR (LIBDW):
