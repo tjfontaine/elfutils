@@ -37,6 +37,15 @@
 #include "libeu.h"
 #include "printversion.h"
 
+#if !defined(FNM_EXTMATCH)
+# define FNM_EXTMATCH 0
+#endif
+
+#if !defined(ALLPERMS)
+# define ALLPERMS (S_ISUID|S_ISGID|S_ISVTX|S_IRWXU|S_IRWXG|S_IRWXO) /* 07777 */
+#endif
+
+
 /* Name and version of program.  */
 ARGP_PROGRAM_VERSION_HOOK_DEF = print_version;
 

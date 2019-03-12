@@ -31,6 +31,27 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <alloca.h>
+#include <string.h>
+
+#ifndef TEMP_FAILURE_RETRY
+#define TEMP_FAILURE_RETRY(expression) \
+  (__extension__                                                              \
+   ({ long int __result;                                                     \
+       do __result = (long int) (expression);                                 \
+       while (__result == -1L && errno == EINTR);                             \
+       __result; }))
+#endif
+
+#ifndef strndupa
+#define strndupa(s, n) \
+       (__extension__ ({const char *__in = (s); \
+                        size_t __len = strnlen (__in, (n)) + 1; \
+                        char *__out = (char *) alloca (__len); \
+                        __out[__len-1] = '\0'; \
+                        (char *) memcpy (__out, __in, __len-1);}))
+#endif
 
 extern void *xmalloc (size_t) __attribute__ ((__malloc__));
 extern void *xcalloc (size_t, size_t) __attribute__ ((__malloc__));
